@@ -5,9 +5,9 @@ services:
     image: postgres:latest
     container_name: postgres
     environment:
-      - POSTGRES_USER=tu_usuario
-      - POSTGRES_PASSWORD=tu_password
-      - POSTGRES_DB=nombre_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres2025
+      - POSTGRES_DB=CoderlandBD
     ports:
       - "5432:5432"
     volumes:
@@ -28,7 +28,7 @@ services:
       - postgres
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=nombre_db;Username=tu_usuario;Password=tu_password
+      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=CoderlandBD;Username=postgres;Password=postgres2025
     networks:
       - coderland-network
     restart: unless-stopped
