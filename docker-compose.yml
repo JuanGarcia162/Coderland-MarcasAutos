@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    environment:
+      - POSTGRES_USER=tu_usuario
+      - POSTGRES_PASSWORD=tu_password
+      - POSTGRES_DB=nombre_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - coderland-network
+    restart: unless-stopped
+
+  api:
+    build:
+      context: .
+      dockerfile: Coderland.API/Dockerfile
+    container_name: coderland-api
+    ports:
+      - "8080:80"
+      - "8081:443"
+    depends_on:
+      - postgres
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=nombre_db;Username=tu_usuario;Password=tu_password
+    networks:
+      - coderland-network
+    restart: unless-stopped
+
+networks:
+  coderland-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
