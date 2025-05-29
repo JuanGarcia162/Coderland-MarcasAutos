@@ -23,10 +23,10 @@ services:
     container_name: coderland-api
     ports:
       - "8080:80"
-      - "8081:443"
     depends_on:
       - postgres
     environment:
+      - ASPNETCORE_URLS=http://+:80
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=CoderlandBD;Username=postgres;Password=postgres2025
     networks:

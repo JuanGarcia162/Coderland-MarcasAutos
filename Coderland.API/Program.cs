@@ -90,6 +90,9 @@ app.UseSwaggerUI(c =>
     c.EnableDeepLinking();
     c.EnableFilter();
     c.DocumentTitle = "Coderland API - Documentación";
+    
+    // Configurar para que sea accesible desde localhost
+    c.ConfigObject.AdditionalItems.Add("host", "localhost:8080");
 });
 
 // Configuración específica para entorno de desarrollo
@@ -99,7 +102,8 @@ if (app.Environment.IsDevelopment())
 }
 
 // Configuración del middleware
-app.UseHttpsRedirection();
+// Deshabilitamos la redirección HTTPS para entornos Docker
+// app.UseHttpsRedirection();
 app.UseRouting();
 app.UseAuthorization();
 app.MapControllers();
